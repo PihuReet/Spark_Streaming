@@ -1,0 +1,56 @@
+Step 1. Install Java
+  Kafka is written in Java and Scala and requires jre 1.7 and above to run it. In this step, we will ensure Java is installed.
+  sudo apt-get update
+  sudo apt-get install default-jre
+  
+Step 2. Install Zookeeper
+  sudo apt-get install zookeeperd
+Step 3. Create a service User for Kafka
+  sudo adduser --system --no-create-home --disabled-password --disabled-login kafka
+  
+Step 4. Installing Kafka
+  cd ~
+  wget "http://www-eu.apache.org/dist/kafka/1.0.1/kafka_2.12-1.0.1.tgz"
+Optionally check the integrity of the downloaded file
+  curl http://kafka.apache.org/KEYS | gpg --import
+wget https://dist.apache.org/repos/dist/release/kafka/1.0.1/kafka_2.12-1.0.1.tgz.asc
+
+gpg --verify kafka_2.12-1.0.1.tgz.asc kafka_2.12-1.0.1.tgz
+
+Create a directory for extracting Kafka
+sudo mkdir /opt/kafka
+sudo tar -xvzf kafka_2.12-1.0.1.tgz --directory /opt/kafka --strip-components 1
+
+Optionally delete Kafka tarball and .asc file
+  rm -rf kafka_2.12-1.0.1.tgz kafka_2.12-1.0.1.tgz.asc
+
+Step 5. Configuring Kafka Server
+  sudo mkdir /var/lib/kafka
+  sudo mkdir /var/lib/kafka/data
+open /opt/kafka/config/server.properties in your favourite editor.
+sudo nano /opt/kafka/config/server.properties
+
+Step 6. Ensure Permission of Directories
+  sudo chown -R kafka:nogroup /opt/kafka
+  sudo chown -R kafka:nogroup /var/lib/kafka
+  
+Step 7. Testing installation
+  In a terminal start a kafka server
+  sudo /opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties
+  
+  In another terminal create a topic
+  /opt/kafka/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+  
+  List all topics with the command below and it will print test the topic we just created
+  /opt/kafka/bin/kafka-topics.sh --list --zookeeper localhost:2181
+
+  Let’s start publishing messages on test topic 
+  /opt/kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+  
+  We will now create a subscriber on test topic and listen from the beginning of the topic.
+  /opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
+
+  Enter some message in the producer
+  Hello world!!!
+  
+  You will see the messages appearing on the subscriber terminal.
