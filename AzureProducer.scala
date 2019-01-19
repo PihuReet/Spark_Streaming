@@ -26,10 +26,10 @@ object AzureProducer {
       producer.send(new ProducerRecord[String, String](topicName, key, message)) 
       System.out.println("Sent event with key: '" + key + "' and message: '" + message + "'\n")
     }
-    val twitterConsumerKey="b82ELHi4BhPlf6VOipjPdZ9fP"
-    val twitterConsumerSecret="1OivdQeO2c6T0iuk0T5W5WFxdbNvFn4EfWo02VH65Ptb9FBSlg"
-    val twitterOauthAccessToken="765985712890056704-f6TSgzZA5xKsKP6J661i0QvwSZB0Wep"
-    val twitterOauthTokenSecret="KxwuInReg4aeu8NWW9VWQNEL85vwHDiYgdvZ7aPmK6YV6"
+    val twitterConsumerKey="--------"
+    val twitterConsumerSecret="------"
+    val twitterOauthAccessToken="-------"
+    val twitterOauthTokenSecret="--------"
     val cb = new ConfigurationBuilder()
     cb.setDebugEnabled(true)
     cb.setOAuthConsumerKey(twitterConsumerKey)
@@ -38,7 +38,7 @@ object AzureProducer {
     cb.setOAuthAccessTokenSecret(twitterOauthTokenSecret)
     val twitterFactory = new TwitterFactory(cb.build())
     val twitter = twitterFactory.getInstance()
-    val query = new Query(" #RaGa ")
+    val query = new Query(" #topicName ")
   
     query.setCount(1000)
     query.lang("en")
