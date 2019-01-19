@@ -137,8 +137,8 @@ object D extends CC[Double]
 
 
 class SentimentDetectorSample extends Serializable {
-  val accessKey = "4af3d2db53af4ebfac9166af35d0c843"
-  val host = "https://centralindia.api.cognitive.microsoft.com"
+  val accessKey = "----------"
+  val host = "-------------"
   val languagesPath = "/text/analytics/v2.0/languages" ///text/analytics/v2.0/languages
   val sentimentPath = "/text/analytics/v2.0/sentiment" ///text/analytics/v2.0/sentiment"
   val languagesUrl = new URL(host+languagesPath)
